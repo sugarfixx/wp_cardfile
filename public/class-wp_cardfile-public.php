@@ -218,6 +218,28 @@ class Wp_cardfile_Public {
         ]);
     }
 
+    public function updateInDb($postVars) {
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'cardfile_users';
+
+        $wpdb->update($table_name, [
+            'parent_id' => $postVars['parent_id'],
+            'first_name' => $postVars['first_name'],
+            'last_name' => $postVars['last_name'],
+            'born' => $postVars['born'],
+            'phone_number' => $postVars['phone_number'],
+            'address_line_1' => $postVars['address_line_1'],
+            'address_line_2' => $postVars['address_line_2'],
+            'postal_code' => $postVars['postal_code'],
+            'city' => $postVars['city'],
+            'unit' => $postVars['unit'],
+            'branch' => $postVars['branch'],
+            'time' => current_time( 'mysql' ),
+        ],[
+            'id' => $postVars['id']
+        ]);
+    }
+
     public function getOrCreateUser($email, $firstName, $lastName) {
         $user = get_user_by('email', $email);
         if ($user) {
