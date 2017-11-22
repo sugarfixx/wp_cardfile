@@ -1,38 +1,38 @@
-(function( $ ) {
-	'use strict';
-
-	/**
-	 * All of the code for your public-facing JavaScript source
-	 * should reside in this file.
-	 *
-	 * Note: It has been assumed you will write jQuery code here, so the
-	 * $ function reference has been prepared for usage within the scope
-	 * of this function.
-	 *
-	 * This enables you to define handlers, for when the DOM is ready:
-	 *
-	 * $(function() {
-	 *
-	 * });
-	 *
-	 * When the window is loaded:
-	 *
-	 * $( window ).load(function() {
-	 *
-	 * });
-	 *
-	 * ...and/or other possibilities.
-	 *
-	 * Ideally, it is not considered best practise to attach more than a
-	 * single DOM-ready or window-load handler for a particular page.
-	 * Although scripts in the WordPress core, Plugins and Themes may be
-	 * practising this, we should strive to set a better example in our own work.
-	 */
-	console.log('loaded');
-
-})( jQuery );
+/*
+var bootstrapCss = 'bootstrapCss';
+if (!document.getElementById(bootstrapCss)) {
+	var head = document.getElementsByTagName('head')[0];
+	var bootstrapWrapper = document.createElement('link');
+	bootstrapWrapper.id = bootstrapCss;
+	bootstrapWrapper.rel = 'stylesheet/less';
+	bootstrapWrapper.type = 'text/css';
+	bootstrapWrapper.href = '/wp-content/plugins/wp_cardfile/public/css/bootstrap-wrapper.less';
+	bootstrapWrapper.media = 'all';
+	head.appendChild(bootstrapWrapper);
+	var lessjs = document.createElement('script');
+	/*
+	lessjs.type = 'text/javascript';
+	lessjs.src = '../wp-content/plugins/experian_soap/admin/js/less.min.js';
+	head.appendChild(lessjs);
+	load other stylesheets that override bootstrap styles here, using the same technique from above
+	*/
+/*
+	var customStyles = document.createElement('link');
+	customStyles.id = "customStyles";
+	customStyles.rel = 'stylesheet';
+	customStyles.type = 'text/css';
+	customStyles.href = '/wp-content/plugins/wp_cardfile/public/css/styles.css';
+	customStyles.media = 'all';
+	head.appendChild(customStyles);
+};
+*/
 jQuery(document).ready(function(){
-
+	/*
+	jQuery('#tab2').hide();
+	jQuery('#tab3').hide();
+	jQuery('#tab4').hide();
+	jQuery('#tab5').hide();
+	*/
 	jQuery("#cardfile").validate({
 		rules: {
 			first_name: {
@@ -139,7 +139,30 @@ jQuery(document).ready(function(){
 
 	});
 });
+function initTabs() {
+	var i, tabcontent;
+	tabcontent = document.getElementsByClassName("tab-pane");
+	for (i = 0; i < tabcontent.length; i++) {
+		if (i > 0) {
+			tabcontent[i].style.display = "none";
+		}
+	}
+}
+window.onload = initTabs();
+function openPane(evt, panel) {
+	// Declare all variables
+	var i, tabcontent;
 
+	// Get all elements with class="tabcontent" and hide them
+	tabcontent = document.getElementsByClassName("tab-pane");
+	for (i = 0; i < tabcontent.length; i++) {
+		tabcontent[i].style.display = "none";
+	}
+
+	// Show the current tab, and add an "active" class to the button that opened the tab
+	document.getElementById(panel).style.display = "block";
+	evt.currentTarget.className += "active";
+}
 /*!
  * jQuery Validation Plugin v1.15.0
  *

@@ -95,11 +95,16 @@ class Wp_cardfile_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
+        $bootstrap = plugin_dir_url( __FILE__ ) . 'js/bootstrap.js';
+        wp_register_script('bootstrap', $bootstrap, null, $this->version, true );
+        wp_enqueue_script('bootstrap');
 
         $custom_ajax = plugin_dir_url( __FILE__ ) . 'js/wp_cardfile-public.js';
         wp_register_script('custom_ajax', $custom_ajax, null, $this->version, true );
         wp_localize_script('custom_ajax', 'ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php')));
         wp_enqueue_script('custom_ajax');
+
+
 
 		// wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp_cardfile-public.js', array( 'jquery' ), $this->version, false );
 
@@ -112,7 +117,7 @@ class Wp_cardfile_Public {
 
     public function display_cardfile($atts) {
 
-        shortcode_atts( array('product' => 'default product'), $atts );
+        shortcode_atts( array('view' => 'register'), $atts );
         include_once( 'partials/wp_cardfile-public-display.php' );
     }
 

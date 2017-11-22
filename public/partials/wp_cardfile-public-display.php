@@ -14,7 +14,6 @@
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
-<h1>Cardfile</h1>
 <?php
 global $current_user ;
 get_current_user();
@@ -60,7 +59,7 @@ $branch_options = [
     'Tennis'
 ];
 
-if ($a['view'] == 'registration') {
+if ($atts['view'] == 'registration') {
     require_once ('register_form.php');
 } else {
     require_once ('update_form.php');
