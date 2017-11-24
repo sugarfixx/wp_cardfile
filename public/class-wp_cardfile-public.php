@@ -73,7 +73,11 @@ class Wp_cardfile_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wp_cardfile-public.css', array(), $this->version, 'all' );
+		$file = get_template_directory().'/'.$this->plugin_name.'/css/wp-cardfile.css';
+		if (!file_exists($file)) {
+		    $file = plugin_dir_url( __FILE__ ) . 'css/wp_cardfile-public.css';
+        }
+		wp_enqueue_style( $this->plugin_name, $file , array(), $this->version, 'all' );
 
 	}
 
@@ -96,10 +100,30 @@ class Wp_cardfile_Public {
 		 * class.
 		 */
 
-        $custom_ajax = plugin_dir_url( __FILE__ ) . 'js/wp_cardfile-public.js';
+
+        $bootstrap = plugin_dir_url( __FILE__ ) . 'js/bootstrap.js';
+        wp_register_script('bootstrap', $bootstrap, null, $this->version, true );
+        wp_enqueue_script('bootstrap');
+
+        $jquery = plugin_dir_url( __FILE__ ) . 'js/jquery.js';
+        wp_register_script('jquery', $jquery, null, $this->version, true );
+        wp_enqueue_script('jquery');
+
+        $jqueryValidate = plugin_dir_url( __FILE__ ) . 'js/jquery-validate.js';
+        wp_register_script('jquery-validate', $jqueryValidate, null, $this->version, true );
+        wp_enqueue_script('jquery-validate');
+
+        $custom_ajax = get_template_directory().'/'.$this->plugin_name.'/js/wp-cardfile.js';
+        if (!file_exists($custom_ajax)) {
+            $custom_ajax = plugin_dir_url( __FILE__ ) . 'js/wp_cardfile-public.js';
+        }
+
+
         wp_register_script('custom_ajax', $custom_ajax, null, $this->version, true );
         wp_localize_script('custom_ajax', 'ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php')));
         wp_enqueue_script('custom_ajax');
+
+
 
 		// wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp_cardfile-public.js', array( 'jquery' ), $this->version, false );
 
@@ -112,8 +136,14 @@ class Wp_cardfile_Public {
 
     public function display_cardfile($atts) {
 
-        shortcode_atts( array('product' => 'default product'), $atts );
-        include_once( 'partials/wp_cardfile-public-display.php' );
+        shortcode_atts( array('view' => 'register'), $atts );
+
+        $file = get_template_directory().'/'.$this->plugin_name.'/wp_cardfile-public-display.php';
+        if (!file_exists($file)) {
+            $file = 'partials/wp_cardfile-public-display.php';
+        }
+
+        include_once( $file );
     }
 
     /**
@@ -215,6 +245,28 @@ class Wp_cardfile_Public {
             'unit' => $postVars['unit'],
             'branch' => $postVars['branch'],
             'time' => current_time( 'mysql' ),
+        ]);
+    }
+
+    public function updateInDb($postVars) {
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'cardfile_users';
+
+        $wpdb->update($table_name, [
+            'parent_id' => $postVars['parent_id'],
+            'first_name' => $postVars['first_name'],
+            'last_name' => $postVars['last_name'],
+            'born' => $postVars['born'],
+            'phone_number' => $postVars['phone_number'],
+            'address_line_1' => $postVars['address_line_1'],
+            'address_line_2' => $postVars['address_line_2'],
+            'postal_code' => $postVars['postal_code'],
+            'city' => $postVars['city'],
+            'unit' => $postVars['unit'],
+            'branch' => $postVars['branch'],
+            'time' => current_time( 'mysql' ),
+        ],[
+            'id' => $postVars['id']
         ]);
     }
 
