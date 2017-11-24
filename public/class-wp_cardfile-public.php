@@ -73,7 +73,11 @@ class Wp_cardfile_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wp_cardfile-public.css', array(), $this->version, 'all' );
+		$file = get_template_directory().'/'.$this->plugin_name.'/css/wp-cardfile.css';
+		if (!file_exists($file)) {
+		    $file = plugin_dir_url( __FILE__ ) . 'css/wp_cardfile-public.css';
+        }
+		wp_enqueue_style( $this->plugin_name, $file , array(), $this->version, 'all' );
 
 	}
 
@@ -95,11 +99,26 @@ class Wp_cardfile_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
+
+
         $bootstrap = plugin_dir_url( __FILE__ ) . 'js/bootstrap.js';
         wp_register_script('bootstrap', $bootstrap, null, $this->version, true );
         wp_enqueue_script('bootstrap');
 
-        $custom_ajax = plugin_dir_url( __FILE__ ) . 'js/wp_cardfile-public.js';
+        $jquery = plugin_dir_url( __FILE__ ) . 'js/jquery.js';
+        wp_register_script('jquery', $jquery, null, $this->version, true );
+        wp_enqueue_script('jquery');
+
+        $jqueryValidate = plugin_dir_url( __FILE__ ) . 'js/jquery-validate.js';
+        wp_register_script('jquery-validate', $jqueryValidate, null, $this->version, true );
+        wp_enqueue_script('jquery-validate');
+
+        $custom_ajax = get_template_directory().'/'.$this->plugin_name.'/js/wp-cardfile.js';
+        if (!file_exists($custom_ajax)) {
+            $custom_ajax = plugin_dir_url( __FILE__ ) . 'js/wp_cardfile-public.js';
+        }
+
+
         wp_register_script('custom_ajax', $custom_ajax, null, $this->version, true );
         wp_localize_script('custom_ajax', 'ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php')));
         wp_enqueue_script('custom_ajax');
@@ -118,7 +137,13 @@ class Wp_cardfile_Public {
     public function display_cardfile($atts) {
 
         shortcode_atts( array('view' => 'register'), $atts );
-        include_once( 'partials/wp_cardfile-public-display.php' );
+
+        $file = get_template_directory().'/'.$this->plugin_name.'/wp_cardfile-public-display.php';
+        if (!file_exists($file)) {
+            $file = 'partials/wp_cardfile-public-display.php';
+        }
+
+        include_once( $file );
     }
 
     /**

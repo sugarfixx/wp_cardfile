@@ -11,13 +11,6 @@
  * @package    Wp_cardfile
  * @subpackage Wp_cardfile/public/partials
  */
-?>
-
-<!-- This file should primarily consist of HTML with a little bit of PHP. -->
-<?php
-global $current_user ;
-get_current_user();
-
 $unit_options = [
     'Kolbotn IL',
     'Oppegård IL',
@@ -59,10 +52,35 @@ $branch_options = [
     'Tennis'
 ];
 
+global $current_user ;
+$user = get_current_user();
+global $wpdb;
+$parent = $wpdb->get_results( 'SELECT  * FROM wp_cardfile_users WHERE wp_user_id = 2', OBJECT_K);
+$children = $wpdb->get_results( 'SELECT  * FROM wp_cardfile_users WHERE parent_id = 2', OBJECT_K);
+
+
+
+
+?>
+
+<!-- This file should primarily consist of HTML with a little bit of PHP. -->
+<?php
+
 if ($atts['view'] == 'registration') {
-    require_once ('register_form.php');
-} else {
-    require_once ('update_form.php');
+
+    $registration_form = get_template_directory().'/wp_cardfile/registration_form.php';
+    if ( !file_exists($registration_form) ) {
+        $registration_form = 'registration_form.php';
+    }
+    require_once( $registration_form );
+}
+else {
+
+    $update_form = get_template_directory().'/wp_cardfile/update_form.php';
+    if (!file_exists($update_form)) {
+        $update_form = 'update_form.php';
+    }
+    require_once ( $update_form );
 }
 
 ?>
