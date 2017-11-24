@@ -161,7 +161,7 @@
                 </div>
             </form>
             </div>
-            <div id="sidePick" class="col-md-5">
+            <div id="sidePicture" class="col-md-5">
                 &nbsp;
             </div>
         </div>
