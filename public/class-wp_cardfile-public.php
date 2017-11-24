@@ -73,11 +73,12 @@ class Wp_cardfile_Public {
 		 * class.
 		 */
 
-		$file = get_template_directory().'/'.$this->plugin_name.'/css/wp-cardfile.css';
-		if (!file_exists($file)) {
+		$file = '/'.$this->plugin_name.'/css/wp_cardfile.css';
+		if (!file_exists(get_template_directory().$file)) {
 		    $file = plugin_dir_url( __FILE__ ) . 'css/wp_cardfile-public.css';
+            wp_enqueue_style( $this->plugin_name, $file , array(), $this->version, 'all' );
         }
-		wp_enqueue_style( $this->plugin_name, $file , array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, get_template_directory_uri().$file , array(), $this->version, 'all' );
 
 	}
 
@@ -113,13 +114,15 @@ class Wp_cardfile_Public {
         wp_register_script('jquery-validate', $jqueryValidate, null, $this->version, true );
         wp_enqueue_script('jquery-validate');
 
-        $custom_ajax = get_template_directory().'/'.$this->plugin_name.'/js/wp-cardfile.js';
-        if (!file_exists($custom_ajax)) {
+
+        $custom_ajax = '/'.$this->plugin_name.'/js/wp_cardfile.js';
+        if (!file_exists( get_template_directory().$custom_ajax)) {
             $custom_ajax = plugin_dir_url( __FILE__ ) . 'js/wp_cardfile-public.js';
+            wp_register_script('custom_ajax', $custom_ajax, null, $this->version, true );
         }
 
 
-        wp_register_script('custom_ajax', $custom_ajax, null, $this->version, true );
+        wp_register_script('custom_ajax', get_template_directory_uri().$custom_ajax, null, $this->version, true );
         wp_localize_script('custom_ajax', 'ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php')));
         wp_enqueue_script('custom_ajax');
 
