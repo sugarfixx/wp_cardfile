@@ -240,6 +240,7 @@ class Wp_cardfile_Public {
             'first_name' => $postVars['first_name'],
             'last_name' => $postVars['last_name'],
             'born' => $postVars['born'],
+            'email' => $postVars['email'],
             'phone_number' => $postVars['phone_number'],
             'address_line_1' => $postVars['address_line_1'],
             'address_line_2' => $postVars['address_line_2'],

@@ -55,6 +55,7 @@ jQuery(document).ready(function(){
 				first_name: jQuery("#first_name").val(),
 				last_name: jQuery("#last_name").val(),
 				email: jQuery("#email").val(),
+				born: jQuery('#born').val(),
 				phone_number: jQuery("#phone_number").val(),
 				address_line_1: jQuery("#address_line_1").val(),
 				address_line_2: jQuery('#address_line_2').val(),
@@ -62,6 +63,7 @@ jQuery(document).ready(function(){
 				city: jQuery('#city').val(),
 				child_first_name: jQuery('#child_first_name').val(),
 				child_last_name: jQuery('#child_last_name').val(),
+                child_born: jQuery('#child_born').val(),
 				child_email : jQuery("#child_email").val(),
 				child_phone_number: jQuery("#child_phone_number").val(),
 				unit: jQuery('#unit').val(),
@@ -102,6 +104,12 @@ function openPane(evt, panel) {
 	for (i = 0; i < tabcontent.length; i++) {
 		tabcontent[i].style.display = "none";
 	}
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
 
 	// Show the current tab, and add an "active" class to the button that opened the tab
 	document.getElementById(panel).style.display = "block";

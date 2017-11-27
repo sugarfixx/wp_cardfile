@@ -46,6 +46,8 @@
                     </div>
 
                     <div class="tab-pane" id="tab2">
+                        <h3>Informasjon om deg</h3>
+                        <hr>
                         <div class="form-group">
                             <label class="control-label col-sm-4" for="first_name">Fornavn :</label>
                             <div class="col-sm-8">
@@ -81,6 +83,8 @@
                     </div>
 
                     <div class="tab-pane" id="tab3">
+                        <h3>Informasjon om deg</h3>
+                        <hr>
                         <div class="form-group">
                             <label class="control-label col-sm-4" for="address_line_1">Adresse 1 :</label>
                             <div class="col-sm-8">
@@ -111,6 +115,8 @@
 
                     <div class="tab-pane" id="tab4">
                         <!-- child -->
+                        <h3>Informasjon om barnet</h3>
+                        <hr>
                         <div class="form-group">
                             <label class="control-label col-sm-4" for="child_first_name">Fornavn :</label>
                             <div class="col-sm-8">
@@ -121,6 +127,12 @@
                             <label class="control-label col-sm-4" for="child_last_name">Etternavn :</label>
                             <div class="col-sm-8">
                                 <input name="child_last_name" type="text" class="form-control" id="child_last_name" placeholder="Nordmann">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="chid_born">Fødselsdato :</label>
+                            <div class="col-sm-8">
+                                <input name="child_born" type="text" class="form-control" id="child_born" placeholder="22/11-1990">
                             </div>
                         </div>
                         <div class="form-group">
@@ -141,16 +153,28 @@
 
                     <div class="tab-pane" id="tab5">
                         <!-- common -->
+                        <h3>Informasjon om medlemsskap</h3>
+                        <hr>
                         <div class="form-group">
                             <label class="control-label col-sm-4" for="unit">Klubb :</label>
                             <div class="col-sm-8">
-                                <input name="unit" type="text" class="form-control" id="unit" placeholder="Vinnerlaget">
+                                <select name="unit" class="form-control" id="unit" placeholder="Vinnerlaget">
+                                    <?php foreach($unit_options as $option): ?>
+                                    <option value="<?php echo $option; ?>"><? echo $option; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <!--<input name="unit" type="text" class="form-control" id="unit" placeholder="Vinnerlaget">-->
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4" for="branch">Gren :</label>
                             <div class="col-sm-8">
-                                <input name="branch" type="text" class="form-control" id="branch" placeholder="badminton">
+                                <select name="branch" class="form-control" id="unit" placeholder="Vinnerlaget">
+                                    <?php foreach($branch_options as $option): ?>
+                                        <option value="<?php echo $option; ?>"><? echo $option; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <!--<input name="branch" type="text" class="form-control" id="branch" placeholder="badminton">-->
                             </div>
                         </div>
                         <div class="bottom-align-text col-sm-8">
@@ -160,9 +184,6 @@
                     </div>
                 </div>
             </form>
-            </div>
-            <div id="sidePicture" class="col-md-5">
-                &nbsp;
             </div>
         </div>
     </div>
