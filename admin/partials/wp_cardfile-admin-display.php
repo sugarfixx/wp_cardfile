@@ -11,7 +11,13 @@
  * @package    Wp_cardfile
  * @subpackage Wp_cardfile/admin/partials
  */
+
+$dir = str_replace('admin/partials/', '',plugin_dir_path( __FILE__ ));
+require_once ($dir.'includes/class-wp_cardfile-users-list-table.php');
+$class = new WP_Cardfile_Users_List_Table();
+
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
-<h1>Here kommer listen over alle medlemmer i kartotektet</h1>
+<h1>Registrerte brukere</h1>
+<?php echo $class->display();?>
