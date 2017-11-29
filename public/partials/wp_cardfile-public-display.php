@@ -55,8 +55,8 @@ $branch_options = [
 global $current_user ;
 $user = get_current_user();
 global $wpdb;
-$parent = $wpdb->get_results( 'SELECT  * FROM wp_cardfile_users WHERE wp_user_id = 2', OBJECT_K);
-$children = $wpdb->get_results( 'SELECT  * FROM wp_cardfile_users WHERE parent_id = 2', OBJECT_K);
+$parent = $wpdb->get_results( 'SELECT  * FROM wp_cardfile_users WHERE wp_user_id = 5', OBJECT);
+$children = $wpdb->get_results( 'SELECT  * FROM wp_cardfile_users WHERE parent_id = 5', OBJECT);
 
 
 
