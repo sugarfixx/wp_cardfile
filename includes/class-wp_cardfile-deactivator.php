@@ -31,11 +31,18 @@ class Wp_cardfile_Deactivator {
 	 */
 	public static function deactivate() {
         self::dropDb();
+        self::dropUnitsDb();
 	}
 
 	public static function dropDb() {
         global $wpdb;
         $table_name = $wpdb->prefix . 'cardfile_users';
+        $wpdb->query( "DROP TABLE IF EXISTS $table_name" );
+    }
+
+    public static function dropUnitsDb() {
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'cardfile_units';
         $wpdb->query( "DROP TABLE IF EXISTS $table_name" );
     }
 

@@ -46,6 +46,18 @@ jQuery(document).ready(function(){
 	jQuery(".submit").click(function(e){
 		e.preventDefault();
 
+		var units =[];
+        var branches =[];
+
+        jQuery('.unit').each(function() {
+        	var unit = jQuery(this).val();
+			units.push(unit);
+		});
+        jQuery('.branch').each(function() {
+            var branch = jQuery(this).val();
+            branches.push(branch);
+        });
+
 		jQuery.ajax({
 			type: 'POST',   // Adding Post method
 			url: ajax_object.ajax_url, // Including ajax file
@@ -66,8 +78,8 @@ jQuery(document).ready(function(){
                 child_born: jQuery('#child_born').val(),
 				child_email : jQuery("#child_email").val(),
 				child_phone_number: jQuery("#child_phone_number").val(),
-				unit: jQuery('#unit').val(),
-				branch: jQuery('#branch').val()
+				unit: units,
+				branch: branches
 			}, // Sending data dname to post_word_count function.
 			success: function(data){ // Show returned data using the function.
 				console.log(data);
@@ -81,9 +93,79 @@ jQuery(document).ready(function(){
 				//alert(errorThrown);
 			}
 		});
-
 	});
+    jQuery('#update-parent').click( function (e) {
+        e.preventDefault();
+        var formData ={action: "cardfile_public",};
+        var successMsg = "Ny oppføring er lagret";
+
+        jQuery.each(jQuery(this).closest('form').serializeArray(),function(_, kv) {
+            if (formData.hasOwnProperty(kv.name)) {
+                formData[kv.name] = jQuery.makeArray(formData[kv.name]);
+                formData[kv.name].push(kv.value);
+            }
+            else {
+                formData[kv.name] = kv.value;
+            }
+        });
+        submitFormData(formData, successMsg);
+    });
+	jQuery('.update-child').click( function (e) {
+        e.preventDefault();
+        var obj ={action: "cardfile_public",};
+        var successMsg = "Ny oppføring er lagret";
+        jQuery.each(jQuery(this).closest('form').serializeArray(),function(_, kv) {
+            if (obj.hasOwnProperty(kv.name)) {
+                obj[kv.name] = jQuery.makeArray(obj[kv.name]);
+                obj[kv.name].push(kv.value);
+            }
+            else {
+                obj[kv.name] = kv.value;
+            }
+        });
+        submitFormData(obj, successMsg);
+    });
+    jQuery('#add-child').click( function (e) {
+        e.preventDefault();
+        var formData = {action: "cardfile_public",};
+        var successMsg = "Ny oppføring er lagret";
+        jQuery.each(jQuery(this).closest('form').serializeArray(),function(_, kv) {
+            if (formData.hasOwnProperty(kv.name)) {
+                formData[kv.name] = jQuery.makeArray(formData[kv.name]);
+                formData[kv.name].push(kv.value);
+            }
+            else {
+                formData[kv.name] = kv.value;
+            }
+        });
+		submitFormData(formData, successMsg);
+    });
+    function submitFormData(formData, successMsg) {
+        jQuery.ajax({
+            type: 'POST',   // Adding Post method
+            url: ajax_object.ajax_url, // Including ajax file
+            data: formData, // Sending data dname to post_word_count function.
+            success: function(data){ // Show returned data using the function.
+                console.log(data);
+                jQuery('.form-group').hide();
+                jQuery('#submit').hide();
+                jQuery('#cardfile').append('<div class="alert alert-success">'+ successMsg +'</div>');
+            },
+            error: function(errorThrown){
+            	console.log(errorThrown);
+                $('#info-group').addClass('has-error'); // add the error class to show red input
+                $('#info-group').append('<div class="help-block">' + data.errors.info + '</div>'); // add the actual error message under our input
+                //alert(errorThrown);
+            }
+        });
+		/*
+        setTimeout(function(){
+            location.reload();
+        }, 3000);
+		*/
+	}
 });
+
 
 function initTabs() {
 	var i, tabcontent;
@@ -114,4 +196,26 @@ function openPane(evt, panel) {
 	// Show the current tab, and add an "active" class to the button that opened the tab
 	document.getElementById(panel).style.display = "block";
 	evt.currentTarget.className += "active";
+}
+var _counter = 0;
+function AddTemplate() {
+    _counter++;
+    var oClone = document.getElementById("template").cloneNode(true);
+	console.log(oClone);
+    oClone.id += (_counter + "");
+	rButton = oClone.querySelector('span');
+	rButton.classList.remove('hidden');
+    rButton.id += (_counter + "");
+    document.getElementById("placeholder").appendChild(oClone);
+}
+function Remove(btn) {
+	btn.parentNode.remove();
+}
+function AddUnit() {
+	console.log('add clicked');
+    _counter++;
+    var oClone = document.getElementById("template").cloneNode(true);
+    console.log(oClone);
+    oClone.id += (_counter + "");
+    document.getElementById("placeholder").appendChild(oClone);
 }

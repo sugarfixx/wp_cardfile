@@ -31,6 +31,7 @@ class Wp_cardfile_Activator {
 	 */
 	public static function activate() {
         self::createDB();
+        self::createUnitsDB();
 	}
 
 	public static function createDB() {
@@ -60,5 +61,27 @@ class Wp_cardfile_Activator {
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
         dbDelta( $sql );
     }
+
+    public static function createUnitsDB() {
+        global $wpdb;
+        $charset_collate = $wpdb->get_charset_collate();
+        $table_name = $wpdb->prefix . 'cardfile_units';
+        $sql = "CREATE TABLE $table_name (
+                id mediumint(9) NOT NULL AUTO_INCREMENT,
+                cardfile_user_id mediumint(9) NOT NULL,
+                name varchar(64),
+                branch varchar(64),
+                time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+                UNIQUE KEY id (id)
+	    ) $charset_collate";
+
+        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+        dbDelta( $sql );
+    }
+
+
+
+
+
 
 }

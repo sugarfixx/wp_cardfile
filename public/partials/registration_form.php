@@ -37,10 +37,10 @@
                         <hr>
                         <p>Lorem ipsum dolor sit amet, consectetur elit?</p>
                         <div class="checkbox">
-                            <label><input name="type" type="checkbox" value="kid">Jeg er over 16</label>
+                            <label><input name="type" type="radio" value="register_user" checked>Jeg er over 16</label>
                         </div>
                         <div class="checkbox">
-                            <label><input id="type" name="type" type="checkbox" value="parent">Jeg er forelder</label>
+                            <label><input id="type" name="type" type="radio" value="register_parent">Jeg er forelder</label>
                         </div>
                         <a class="btn btn-primary text-center" onclick="openPane(event, 'tab2')" id="btnNext">Next</a>
                     </div>
@@ -118,8 +118,8 @@
                         <h3>Informasjon om barnet</h3>
                         <hr>
                         <div class="form-group">
-                            <label class="control-label col-sm-4" for="child_first_name">Fornavn :</label>
-                            <div class="col-sm-8">
+                            <label class="control-label col-sm-3" for="child_first_name">Fornavn :</label>
+                            <div class="col-sm-3">
                                 <input name="child_first_name" type="text" class="form-control" id="child_first_name" placeholder="Ola">
                             </div>
                         </div>
@@ -155,28 +155,37 @@
                         <!-- common -->
                         <h3>Informasjon om medlemsskap</h3>
                         <hr>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4" for="unit">Klubb :</label>
-                            <div class="col-sm-8">
-                                <select name="unit" class="form-control" id="unit" placeholder="Vinnerlaget">
-                                    <?php foreach($unit_options as $option): ?>
-                                    <option value="<?php echo $option; ?>"><? echo $option; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                                <!--<input name="unit" type="text" class="form-control" id="unit" placeholder="Vinnerlaget">-->
+                        <div id="template">
+                            <div class="row">
+                                <span id="rm" class="hidden pull-right" onclick="Remove(this)">Remove</span>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="unit">Klubb :</label>
+                                    <div class="col-sm-8">
+                                        <select name="unit[]" class="form-control unit">
+                                            <?php foreach($unit_options as $option): ?>
+                                                <option value="<?php echo $option; ?>"><? echo $option; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <!--<input name="unit" type="text" class="form-control" id="unit" placeholder="Vinnerlaget">-->
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="branch">Gren :</label>
+                                    <div class="col-sm-8">
+                                        <select name="branch[]" class="form-control branch">
+                                            <?php foreach($branch_options as $option): ?>
+                                                <option value="<?php echo $option; ?>"><? echo $option; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <!--<input name="branch" type="text" class="form-control" id="branch" placeholder="badminton">-->
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4" for="branch">Gren :</label>
-                            <div class="col-sm-8">
-                                <select name="branch" class="form-control" id="unit" placeholder="Vinnerlaget">
-                                    <?php foreach($branch_options as $option): ?>
-                                        <option value="<?php echo $option; ?>"><? echo $option; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                                <!--<input name="branch" type="text" class="form-control" id="branch" placeholder="badminton">-->
-                            </div>
-                        </div>
+                        <div id="placeholder"></div>
+                        <button type="button" class="btn" name="addTemplate" onclick="AddTemplate(this)">ADD</button>
+
                         <div class="bottom-align-text col-sm-8">
                             <a class="btn btn-primary" onclick="openPane(event, 'tab4')" id="btnPrevious">Previous</a>
                             <button id="submit" type="submit" class="btn btn-primary submit">Submit</button>
