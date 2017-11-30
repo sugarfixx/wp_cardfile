@@ -24,20 +24,27 @@ class WP_Cardfile_Users_List_Table extends WP_List_Table
     public function get_columns() {
         $columns = [
             'cb' => '<input type="checkbox" />',
-            'id' => __('ID', 'ux'),
-            'wp_user_id' => __('Wp_User', 'ux'),
-            'first_name' => __('Fornavn', 'ux') ,
-            'last_name' => __('Etternavn', 'ux') ,
-            'address_line_1' => __('Adresse', 'ux') ,
-            'city' => __('Sted', 'ux') ,
-            'time' => __('Date', 'ux')
+            'id' => 'ID',
+            'wp_user_id' =>'Wp_User',
+            'first_name' => 'Fornavn',
+            'last_name' => 'Etternavn',
+            'address_line_1' =>'Adresse',
+            'city' => 'Sted',
+            'time' => 'Date',
         ];
         return $columns;
     }
     public function get_hidden_columns()
     {
         // Setup Hidden columns and return them
-        return array();
+        return [
+            'blog_id',
+            'address_line_2',
+            'born',
+            'email',
+            'unit',
+            'branch'
+        ];
     }
 
     public function get_sortable_columns()
@@ -66,7 +73,9 @@ class WP_Cardfile_Users_List_Table extends WP_List_Table
         $per_page = $this->get_items_per_page('records_per_page', 10);
         $current_page = $this->get_pagenum();
         $total_items = self::record_count();
-        $data = self::get_records($per_page, $current_page);
+
+        $data = self::get_records();
+
         $this->set_pagination_args(
             ['total_items' => $total_items, //WE have to calculate the total number of items
              'per_page' => $per_page // WE have to determine how many items to show on a page
@@ -87,8 +96,10 @@ class WP_Cardfile_Users_List_Table extends WP_List_Table
         $sql.= " LIMIT $per_page";
         $sql.= ' OFFSET ' . ($page_number - 1) * $per_page;
         $result = $wpdb->get_results($sql, 'ARRAY_A');
+        var_dump($result);
         return $result;
     }
+
     function column_cb($item)
     {
         return sprintf('<input type="checkbox" name="bulk-delete[]" value="%s" />', $item['id']);

@@ -51,16 +51,6 @@ $branch_options = [
     'Triathlon',
     'Tennis'
 ];
-
-global $current_user ;
-$user = get_current_user();
-global $wpdb;
-$parent = $wpdb->get_results( 'SELECT  * FROM wp_cardfile_users WHERE wp_user_id = 5', OBJECT);
-$children = $wpdb->get_results( 'SELECT  * FROM wp_cardfile_users WHERE parent_id = 5', OBJECT);
-
-
-
-
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
@@ -75,12 +65,31 @@ if ($atts['view'] == 'registration') {
     require_once( $registration_form );
 }
 else {
+    global $current_user ;
+    $user = get_current_user_id();
 
-    $update_form = get_template_directory().'/wp_cardfile/update_form.php';
-    if (!file_exists($update_form)) {
-        $update_form = 'update_form.php';
+    if ($user) {
+        global $wpdb;
+
+        $parent = $wpdb->get_results( "SELECT * FROM wp_cardfile_users WHERE wp_user_id='$user->ID'", OBJECT);
+        $children = $wpdb->get_results( "SELECT * FROM wp_cardfile_users WHERE parent_id='$user->ID'", OBJECT);
+        $update_form = get_template_directory().'/wp_cardfile/update_form.php';
+
+        if ($parent) {
+            if (!file_exists($update_form)) {
+                $update_form = 'update_form.php';
+            }
+            require_once ( $update_form );
+        }
+        else {
+            echo $user;
+        }
+
     }
-    require_once ( $update_form );
+    else {
+
+        echo '<h1> Du må være logget inn for å se denne siden</h1>';
+    }
 }
 
 ?>

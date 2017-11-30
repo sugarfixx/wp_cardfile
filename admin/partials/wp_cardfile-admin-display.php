@@ -13,8 +13,9 @@
  */
 
 $dir = str_replace('admin/partials/', '',plugin_dir_path( __FILE__ ));
-require_once ($dir.'includes/class-wp_cardfile-users-list-table.php');
-$class = new WP_Cardfile_Users_List_Table();
+require_once ($dir.'includes/class-wp-test-list.php');
+$class = new WP_Test_List();
+$class->prepare_items();
 
 ?>
 
