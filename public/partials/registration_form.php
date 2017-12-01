@@ -42,7 +42,7 @@
                         <div class="checkbox">
                             <label><input id="type" name="type" type="radio" value="register_parent">Jeg er forelder</label>
                         </div>
-                        <a class="btn btn-primary text-center" onclick="openPane(event, 'tab2')" id="btnNext">Next</a>
+                        <a class="btn btn-primary text-center" onclick="openPane(event, 'tab2', this)" id="btnNext">Next</a>
                     </div>
 
                     <div class="tab-pane" id="tab2">
@@ -78,8 +78,8 @@
                                 <input name="born" type="text" class="form-control" id="born" placeholder="22/11-1990">
                             </div>
                         </div>
-                        <a class="btn btn-primary" onclick="openPane(event, 'tab3')"id="btnNext">Next</a>
-                        <a class="btn btn-primary" onclick="openPane(event, 'tab1')"id="btnPrevious">Previous</a>
+                        <a class="btn btn-primary" onclick="openPane(event, 'tab3', this)"id="btnNext">Next</a>
+                        <a class="btn btn-primary" onclick="openPane(event, 'tab1', this)"id="btnPrevious">Previous</a>
                     </div>
 
                     <div class="tab-pane" id="tab3">
@@ -109,8 +109,8 @@
                                 <input name="city" type="text" class="form-control" id="city" placeholder="Nabolaget">
                             </div>
                         </div>
-                        <a class="btn btn-primary" onclick="openPane(event, 'tab4')" id="btnNext">Next</a>
-                        <a class="btn btn-primary" onclick="openPane(event, 'tab2')" id="btnPrevious">Previous</a>
+                        <a class="btn btn-primary" onclick="openPane(event, 'tab4',this)" id="btnNext">Next</a>
+                        <a class="btn btn-primary" onclick="openPane(event, 'tab2',this)" id="btnPrevious">Previous</a>
                     </div>
 
                     <div class="tab-pane" id="tab4">
@@ -147,8 +147,8 @@
                                 <input name="child_child_fphone_number" type="text" class="form-control" id="child_phone_number" placeholder="22334455">
                             </div>
                         </div>
-                        <a class="btn btn-primary" onclick="openPane(event, 'tab5')" id="btnNext">Next</a>
-                        <a class="btn btn-primary" onclick="openPane(event, 'tab3')" id="btnPrevious">Previous</a>
+                        <a class="btn btn-primary" onclick="openPane(event, 'tab5', this)" id="btnNext">Next</a>
+                        <a class="btn btn-primary" onclick="openPane(event, 'tab3', this)" id="btnPrevious">Previous</a>
                     </div>
 
                     <div class="tab-pane" id="tab5">
@@ -187,7 +187,7 @@
                         <button type="button" class="btn" name="addTemplate" onclick="AddTemplate(this)">ADD</button>
 
                         <div class="bottom-align-text col-sm-8">
-                            <a class="btn btn-primary" onclick="openPane(event, 'tab4')" id="btnPrevious">Previous</a>
+                            <a class="btn btn-primary" onclick="openPane(event, 'tab4', this)" id="btnPrevious">Previous</a>
                             <button id="submit" type="submit" class="btn btn-primary submit">Submit</button>
                         </div>
                     </div>

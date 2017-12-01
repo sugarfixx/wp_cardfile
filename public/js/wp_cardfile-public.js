@@ -177,9 +177,15 @@ function initTabs() {
 	}
 }
 window.onload = initTabs();
-function openPane(evt, panel) {
+function openPane(evt, panel, el) {
 	// Declare all variables
-	var i, tabcontent;
+	var i, tabcontent, type;
+	type = document.getElementById('type').checked;
+
+	if (type !== true && panel === 'tab4') {
+		panel = (el.parentNode.id === 'tab3') ? 'tab5' : 'tab3';
+	}
+
 
 	// Get all elements with class="tabcontent" and hide them
 	tabcontent = document.getElementsByClassName("tab-pane");
